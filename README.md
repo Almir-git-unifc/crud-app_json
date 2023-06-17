@@ -1,2 +1,2 @@
-VERSÃO 0   test send files readme      ********************************************************************************************
-git commit -m "test(init): v00.00.001 - first commit with Teste 0, send readme"
+VERSÃO v00.00.002   test send files readme      ********************************************************************************************
+"test(init): v00.00.002 - second commit with Teste 1, send files in branch devABS"
