@@ -6,3 +6,5 @@ v02.00.001 - Made table with JSON, buttons Create Cancel that call List - Insert
 
 v03.00.001 - implements 'Create New Product' screen
 
+v04.00.001 - implements tests validation form'Create New Product' blank
+
