@@ -16,7 +16,7 @@ export function Navbar() {
                             <Link className="nav-link text-dark" aria-current="page" to="/">Home</Link>
                         </li>
                         <li className="nav-item">
-                            < Link className="nav-link text-dark" to="/products">Products</Link >
+                            < Link className="nav-link text-dark" to="/products">Produtos</Link >
                         </li>
                     </ul>
                 </div>

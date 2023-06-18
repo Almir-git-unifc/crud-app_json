@@ -1,2 +1,4 @@
-VERSÃO v00.00.002   test send files readme      ********************************************************************************************
-"test(init): v00.00.002 - second commit with Teste 1, send files in branch devABS"
+v00.00.002   test send readme  and others files     
+
+v01.00.001 - Implements btn, and opens blank Home, List Products, New Products pages
+
