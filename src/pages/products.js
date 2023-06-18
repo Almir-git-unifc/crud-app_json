@@ -30,7 +30,6 @@ function ProductList(props) {
                 return response.json()  /** a response é convertida em JSON */
             })
             .then((data) => {
-                console.log(2, data);
                 setProducts(data);
             })  /** e o JSON é convertido emdados e exibido no console */
             .catch((error) => console.log("Error: ", error));
@@ -87,6 +86,25 @@ function ProductList(props) {
 
 
 function ProductForm(props) {
+
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        // ler os dados do form
+        const formData = new FormData(event.target);
+
+        // converte o formData para Object
+        const product = Object.fromEntries(formData.entries());
+
+        // form validation PARA FORMULÁRIO EM BRANCO
+        // SE OS DADDOS ESTIVEREM FORA DOS PADRÕES
+        if (!product.name || !product.brand || !product.ctegory || !product.price) {
+            console.log("Por favor, preencha todos os campos")
+            return;
+        }
+
+    }
+
     return (
         <>
             <h2 className="text-center  mb-3">Incluir Novo Produto</h2>
@@ -96,7 +114,7 @@ function ProductForm(props) {
             <div className="row">
                 <div className="col-lg-6 mx-auto">
 
-                    <form>
+                    <form onSubmit={(event) => handleSubmit(event)}>
                         <div className="row mb-3">
                             <label className="col-sm-4 col-form-label">Name</label>
                             <div className="col-sm-8" >
