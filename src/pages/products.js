@@ -86,14 +86,87 @@ function ProductList(props) {
 }
 
 
-
-
-
 function ProductForm(props) {
     return (
         <>
             <h2 className="text-center  mb-3">Incluir Novo Produto</h2>
             <buttom onClick={() => props.showList()} type="buttom" className="btn btn-outline-primary me-2">Cancel</buttom>
+
+
+            <div className="row">
+                <div className="col-lg-6 mx-auto">
+
+                    <form>
+                        <div className="row mb-3">
+                            <label className="col-sm-4 col-form-label">Name</label>
+                            <div className="col-sm-8" >
+                                <input className="form-control"
+                                    name="name"
+                                    defaultValue="" />
+                            </div>
+                        </div>
+
+                        <div className="row mb-3">
+                            <label className="col-sm-4 col-form-label">Brand</label>
+                            <div className="col-sm-8" >
+                                <input className="form-control"
+                                    name="brand"
+                                    defaultValue="" />
+                            </div>
+                        </div>
+
+
+                        <div className="row mb-3">
+                            <label className="col-sm-4 col-form-label">Category</label>
+                            <div className="col-sm-8" >
+                                <select className="form-select"
+                                    name="category"
+                                    defaultValue="" >
+
+                                    <option value="Other">Other</option>
+                                    <option value="Phones">Phones</option>
+                                    <option value="Computers">Computers</option>
+                                    <option value="Accessories">Accessories</option>
+                                    <option value="GPS">GPS</option>
+                                    <option value="Cameras">Cameras</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="row mb-3">
+                            <label className="col-sm-4 col-form-label">Price</label>
+                            <div className="col-sm-8" >
+                                <input className="form-control"
+                                    name="price"
+                                    defaultValue="" />
+                            </div>
+                        </div>
+
+                        <div className="row mb-3">
+                            <label className="col-sm-4 col-form-label">Description</label>
+                            <div className="col-sm-8" >
+                                <textarea className="form-control"
+                                    name="description"
+                                    defaultValue="" />
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <div className="offset-sm-4 col-sm-4 d-grid">
+                                <button type="submit" className="btn btn-primary btn-sm mc-3" >Save</button>
+                            </div>
+                            <div classname="col-sm-4 d-grid">
+                                <buttom onClick={() => props.showList()} type="buttom"
+                                    className="btn btn-seconday me-2">Cancel</buttom>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+
+
         </>
     );
 }
