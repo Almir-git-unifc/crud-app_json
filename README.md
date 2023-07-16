@@ -10,5 +10,7 @@ v04.00.001 - implements tests validation form'Create New Product' blank
 
 v05.00.001 - implements form 'Create New Product' valid
 
+v06.00.001 - report tests in feature of Create New Product' valid in katalan studio
+
 
 
