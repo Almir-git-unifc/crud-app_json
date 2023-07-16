@@ -8,3 +8,7 @@ v03.00.001 - implements 'Create New Product' screen
 
 v04.00.001 - implements tests validation form'Create New Product' blank
 
+v05.00.001 - implements form 'Create New Product' valid
+
+
+

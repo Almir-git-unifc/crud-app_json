@@ -17,6 +17,51 @@
               "description":"Red color",
               "createdAt":"2023-03-07",
               "id":2
-         }
+         },
+         {
+            "name": "Compaq",
+            "brand": "Portable",
+            "category": "Computers",
+            "price": "90",
+            "description": "1982 512Kb RAM",
+            "createdAt": "2023-07-15",
+            "id": 3
+          },
+          {
+            "name": "Dell",
+            "brand": "Optiplex 2101",
+            "category": "Computers",
+            "price": "300",
+            "description": "Optiplex 2101",
+            "createdAt": "2023-07-15",
+            "id": 4
+          },
+          {
+            "name": "Facil Computadores",
+            "brand": "Facil Gabinete Torre ATX",
+            "category": "Computers",
+            "price": "300",
+            "description": "I3 Intel, 500GB HD",
+            "createdAt": "2023-07-15",
+            "id": 5
+          },
+          {
+            "name": "Itautec Mini PC",
+            "brand": "Infoway 2030",
+            "category": "Computers",
+            "price": "400",
+            "description": "2GB RAM, 160GB HD",
+            "createdAt": "2023-07-15",
+            "id": 6
+          },
+          {
+            "name": "Postech Unisys",
+            "brand": "Mini PC U7500",
+            "category": "Computers",
+            "price": "500",
+            "description": "2GB RAM, 120GB SSD, Celeron",
+            "createdAt": "2023-07-15",
+            "id": 7
+          }
       ]
 }
