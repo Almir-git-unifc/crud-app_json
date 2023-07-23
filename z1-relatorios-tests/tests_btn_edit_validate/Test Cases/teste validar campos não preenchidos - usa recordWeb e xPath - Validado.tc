@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description>Verifica se bloqueia tentativa de gravar produtos com nome e valor em branco</description>
+   <name>teste validar campos não preenchidos - usa recordWeb e xPath - Validado</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>cf947066-9de3-49a1-b1a0-3bab6add486b</testCaseGuid>
+</TestCaseEntity>

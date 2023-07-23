@@ -7,8 +7,8 @@ export function Products() {
         setContent(<ProductList showForm={showForm} />);
     }
 
-    function showForm() {
-        setContent(<ProductForm showList={showList} />);
+    function showForm(product) {
+        setContent(<ProductForm product={product} showList={showList} />);
     }
 
     return (
@@ -40,7 +40,7 @@ function ProductList(props) {
     return (
         <>
             <h2 className="text-center  mb-3">Listar Produtos</h2>
-            <button onClick={() => props.showForm()} type="button" id="btnCreate" className="btn btn-primary me-2">Create</button>
+            <button onClick={() => props.showForm({})} type="button" className="btn btn-primary me-2">Create</button>
 
             <button onClick={() => fetchProducts()} type="button" className="btn btn-outline-primary me-2">Refresh</button>
 
@@ -53,14 +53,15 @@ function ProductList(props) {
                         <th>Categoria</th>
                         <th>Preço</th>
                         <th>Criado em</th>
-                        <th>Ação</th>
+                        <th>Edit</th>
+                        <th>Del</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         products.map((product, index) => {
                             return (
-                                <tr key={index} >
+                                <tr key={index} id="prod" >
                                     <td>{product.id}</td>
                                     <td>{product.name}</td>
                                     <td>{product.brand}</td>
@@ -68,11 +69,10 @@ function ProductList(props) {
                                     <td>R$ {product.price}</td>
                                     <td>{product.createdAt}</td>
                                     <td style={{ width: "10px", 'whiteSpace': 'nowrap' }} >
-
-
-
-                                        <button type="button" className="btn btn-primary btn-sm me-2">Edit</button>
-                                        <button type="button" className="btn btn-danger btn-sm">Delete</button>
+                                        <button onClick={() => props.showForm(product)} type="button" className="btn btn-primary btn-sm me-2" id="btnEdit" >Edit</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" className="btn btn-danger btn-sm" id="btnCancel" >Delete</button>
                                     </td>
                                 </tr>
                             );
@@ -102,44 +102,72 @@ function ProductForm(props) {
         // form validation PARA FORMULÁRIO EM BRANCO
         // SE OS DADOS ESTIVEREM FORA DOS PADRÕES
         if (!product.name || !product.brand || !product.category || !product.price) {
-           let  msgAlert = 'Por favor, preencha todos os campos';
+            let msgAlert = 'Por favor, preencha todos os campos';
             console.log(msgAlert);
             // Aqui vamos colocar um alerta
             setErrorMessage(
-                <div id="alert" className="alert alert-danger" role="alert">                    
-                        {msgAlert}
+                <div id="alert" className="alert alert-danger" role="alert">
+                    {msgAlert}
                 </div>
             );
             return;
         }
 
-        // create a new product - CRIAR NOVO PRODUTO
-        product.createdAt = new Date().toISOString().slice(0, 10);
-        fetch("http://localhost:3004/products", {
-            // Parte do method e Headers é padrão da API Fetch, encontado em https://developer.mozilla.org/pt-BR/docs/Web/API/Fetch_API/Using_Fetch
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            // Aqui vamos incluir os dados recebidos, no caso os dados são product
-            body: JSON.stringify(product)
-        })
-            .then((response) => {
-                if (response.code == 400 || response.code == 500) {
-                    throw new Error("Resposta codigo 400 ou 500... não estava OK");
-                }
-                return response.json()
+        // Se (IF) existir o product.id faremos uma atualização; senão (ELSE) criaremos novo product
+        if (props.product.id) {
+            // update the product. Para atualizar podemos usar o método http PUT ou o método PATCH. 
+            // Usando o PUT precisa informar todas as propriedades do produto; usando PATCH só precisa informar as propriedades que vamos atualizar
+            fetch("http://localhost:3004/products/" + props.product.id, {
+                // Parte do method e Headers é padrão da API Fetch, encontado em 
+                // https://developer.mozilla.org/pt-BR/docs/Web/API/Fetch_API/Using_Fetch
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                // Aqui vamos incluir os dados recebidos, no caso os dados são product
+                body: JSON.stringify(product)
             })
-            .then((data) => props.showList())  // props.showList()  mostra todos os dados
-            .catch((error) => {
-                console.log(6, error);
-            });
+                .then((response) => {
+                    if (response.code >= 400) {
+                        throw new Error("Resposta codigo 400 ou maior... não estava OK");
+                    }
+                    return response.json()
+                })
+                .then((data) => props.showList())  // props.showList()  mostra todos os dados
+                .catch((error) => {
+                    console.log(6, error);
+                });
+        }
+        else {
 
+            // create a new product - CRIAR NOVO PRODUTO
+            product.createdAt = new Date().toISOString().slice(0, 10);
+            fetch("http://localhost:3004/products", {
+                // Parte do method e Headers é padrão da API Fetch, encontado em https://developer.mozilla.org/pt-BR/docs/Web/API/Fetch_API/Using_Fetch
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                // Aqui vamos incluir os dados recebidos, no caso os dados são product
+                body: JSON.stringify(product)
+            })
+                .then((response) => {
+                    if (response.code >= 400) {
+                        throw new Error("Resposta codigo 400 ou maior... não estava OK");
+                    }
+                    return response.json()
+                })
+                .then((data) => props.showList())  // props.showList()  mostra todos os dados
+                .catch((error) => {
+                    console.log(6, error);
+                });
+        }
     }
 
+    //  Em h2 className="text-center vamos atualizar o nome da Página. Página vazia o título é Incluir Novo Produto; página preenchida, o título é Editar
     return (
         <>
-            <h2 className="text-center  mb-3">Incluir Novo Produto</h2>
+            <h2 className="text-center  mb-3" id='titH2-PgEdit'>{props.product.id ? "Editar Produto" : "Incluir Novo Produto"}</h2>
 
             <div className="row">
                 <div className="col-lg-6 mx-auto">
@@ -147,12 +175,22 @@ function ProductForm(props) {
                     {errorMessage}
 
                     <form onSubmit={(event) => handleSubmit(event)}>
+
+                        {props.product.id && <div className="row mb-3">
+                            <label className="col-sm-4 col-form-label">ID</label>
+                            <div className="col-sm-8" >
+                                <input readOnly className="form-control-plaintext"
+                                    name="id"
+                                    defaultValue={props.product.id} />
+                            </div>
+                        </div>}
+
                         <div className="row mb-3">
                             <label className="col-sm-4 col-form-label">Name</label>
                             <div className="col-sm-8" >
                                 <input className="form-control"
                                     name="name"
-                                    defaultValue="" />
+                                    defaultValue={props.product.name} />
                             </div>
                         </div>
 
@@ -161,7 +199,7 @@ function ProductForm(props) {
                             <div className="col-sm-8" >
                                 <input className="form-control"
                                     name="brand"
-                                    defaultValue="" />
+                                    defaultValue={props.product.brand} />
                             </div>
                         </div>
 
@@ -171,7 +209,7 @@ function ProductForm(props) {
                             <div className="col-sm-8" >
                                 <select className="form-select"
                                     name="category"
-                                    defaultValue="" >
+                                    defaultValue={props.product.category} >
 
                                     <option value="Other">Other</option>
                                     <option value="Phones">Phones</option>
@@ -188,7 +226,7 @@ function ProductForm(props) {
                             <div className="col-sm-8" >
                                 <input className="form-control"
                                     name="price"
-                                    defaultValue="" />
+                                    defaultValue={props.product.price} />
                             </div>
                         </div>
 
@@ -197,7 +235,7 @@ function ProductForm(props) {
                             <div className="col-sm-8" >
                                 <textarea className="form-control"
                                     name="description"
-                                    defaultValue="" />
+                                    defaultValue={props.product.description} />
                             </div>
                         </div>
 
@@ -207,7 +245,7 @@ function ProductForm(props) {
                             </div>
                             <div className="col-sm-4 d-grid">
                                 <button onClick={() => props.showList()} type="button"
-                                    className="btn btn-outline-primary btn-sm mc-3">Cancel</button>
+                                    className="btn btn-outline-primary btn-sm mc-3" >Cancel</button>
                             </div>
                         </div>
 

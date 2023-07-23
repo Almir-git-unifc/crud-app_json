@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description>Gravando produtos válidos</description>
+   <name>teste cadastrar produtos validos com-xpath - Validado</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>de779b77-1cd2-4dc7-b6f0-8887d7355120</testCaseGuid>
+</TestCaseEntity>
