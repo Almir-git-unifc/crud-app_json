@@ -1,0 +1,200 @@
+import org.openqa.selenium.By as By
+import org.openqa.selenium.WebDriver as WebDriver
+import org.openqa.selenium.WebElement as WebElement
+import com.kms.katalon.core.webui.driver.DriverFactory as DriverFactory
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
+import com.kms.katalon.core.cucumber.keyword.CucumberBuiltinKeywords as CucumberKW
+import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
+import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
+import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import static com.kms.katalon.core.testobject.ObjectRepository.findWindowsObject
+import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
+import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
+import com.kms.katalon.core.testcase.TestCase as TestCase
+import com.kms.katalon.core.testdata.TestData as TestData
+import com.kms.katalon.core.testobject.TestObject as TestObject
+import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
+import com.kms.katalon.core.model.FailureHandling as FailureHandling
+import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
+import com.kms.katalon.core.cucumber.keyword.CucumberBuiltinKeywords as CucumberKW
+import com.kms.katalon.core.model.FailureHandling as FailureHandling
+import com.kms.katalon.core.testng.keyword.TestNGBuiltinKeywords as TestNGKW
+import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
+import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
+import internal.GlobalVariable as GlobalVariable
+import com.kms.katalon.core.exception.StepErrorException as StepErrorException
+import org.openqa.selenium.Keys as Keys
+import com.kms.katalon.core.util.KeywordUtil
+
+WebUI.openBrowser('')
+
+WebUI.navigateToUrl('http://localhost:3000/')
+
+WebUI.delay(2)
+
+WebUI.click(findTestObject('campo-btnProduct-Pg-listProd'))
+
+WebUI.delay(2)
+
+WebUI.maximizeWindow()
+
+WebDriver driver = DriverFactory.getWebDriver()
+
+'ELEMENTO PARA DELETAR'
+
+'***************************** Valor esperado na Tabela *****************************'
+String ExpectedValue = 'Postech Unisys'
+
+
+
+'***************************** Consulta: O país (col. 2) onde fica a empresa ExpectedValue é...  *****************************'
+Integer ColunConsult = 1
+
+int totalLinhas = 0
+
+String deletado = 'no'
+
+String paraDeletar = 'no'
+
+String errado = 'ERRO: elemento recebido para deletar é ' + ExpectedValue + ' mas o elemento NÃO EXISTIA na tabela '
+
+'To locate table'
+WebElement Table = driver.findElement(By.xpath('//table/tbody'))
+
+'To locate rows of table it will Capture all the rows available in the table'
+List<WebElement> rows_table = Table.findElements(By.tagName('tr'))
+
+'Verificar total de linhas da tabela'
+totalLinhas = rows_table.size()
+
+'LOOP NAS LINHAS da tabela'
+Loop: for (int row = 0; row < totalLinhas; row++) {
+	
+	'To locate columns(cells) of that specific row'
+	List<WebElement> Columns_row = rows_table.get(row).findElements(By.tagName('td'))
+
+	'To calculate no of columns(cells) In that specific row'
+	int columns_count = Columns_row.size()
+
+	println((('O numero desta linha é =========> ' + row) + ' são ') + columns_count)
+
+	'LOOP NAS COLUNAS da tabela'
+	for (int column = 0; column < columns_count; column++) {
+		
+		'Armazena o texto de cada célula para comparação'
+		String celltext = Columns_row.get(column).getText()
+
+		println((((('Nesta tabela, situada na linha ' + row) + ' e coluna ') + column) + ' o valor é: ') + celltext)
+
+		'Verificanddo se o texto da célula é o valor esperado'
+		if (celltext == ExpectedValue) {
+			'Como o site W3schools.com....table.as tem 3 colunas, company - contact - Country...'
+
+			'Pegamos o conteudo da coluna XXXX da linha que tem valor esperado,'
+
+			'Isto se cell text i.e Company corresponde ao valor experado: Expected value'
+			println("\n")
+			println(((('ACHEI, ACHEI. O texto PROCURADO que está na mesma linha que ' + ExpectedValue) + ' e na coluna ' + ColunConsult) + ',  é ==========>: ') + Columns_row.get(ColunConsult).getText())
+			println("\n")
+			
+			int linha = row + 1
+			
+			String botaoDel = WebUI.getText(findTestObject('campo-btnDelete',[ ('varnumlinha') : linha]))
+			
+			deletado ='yes'
+			
+		    println('Capturei o botão: ' + botaoDel)
+			
+			// Deleta clicando no botão DELETE da respectiva linha
+			WebUI.click(findTestObject('campo-btnDelete',[ ('varnumlinha') : linha]))
+			
+			// Que linha seria deletada?????????????????????????????????????????????????
+			
+			println('a linha da palavra pesquisada eh: ' + linha)
+		
+			
+			println('')
+			
+			println('')
+			
+
+
+			'Depois de encontrar o valor esperado na tabela durante o loop, este valor será exibido no terminal console.'
+			
+			'variavel de controle para caso não achar o valor na tabela'
+			paraDeletar = 'yes'
+			
+			column = columns_count
+			
+			row = totalLinhas
+			
+			break;
+		}
+	}
+	
+	// Procura para ver se deletou
+}
+if (paraDeletar == 'no') {
+	println("\n")
+	println("\n")
+	WebUI.closeBrowser()
+	throw new StepErrorException(errado)
+}
+
+
+
+'***************************** Validar Deletado da Tabela - Percorrer Tabela Dinâmica *****************************'
+
+// FALTA CAPTURAR O VALOR DA LINHA E EXIBIR
+
+if(paraDeletar == 'yes') {
+	println("\n")
+
+	KeywordUtil.markWarning("INICIO DA VALIDAÇÃO")
+	
+	WebUI.openBrowser('')
+	
+	WebUI.navigateToUrl('http://localhost:3000/products')
+	
+	WebDriver wd = DriverFactory.getWebDriver()
+	
+		
+	'To locate table'
+	WebElement Table2 = wd.findElement(By.xpath('//table/tbody'))
+	
+	'To locate rows of table it will Capture all the rows available in the table'
+	List<WebElement> allRows = Table2.findElements(By.tagName('tr'))
+	
+	
+	'Verificar total de linhas da tabela'
+	totalLinhas = allRows.size()
+	
+	'LOOP NAS LINHAS da tabela'
+	for (int line = 1; line <= totalLinhas; line++) {
+
+		String text = WebUI.getText(findTestObject('obj-Row-ValidationDelete',[ ('varLineRun') : line]))
+		
+		
+		if(text!=(ExpectedValue)) {
+			String mensag = 'O conteudo da linha ' + line + ' da coluna 2 é: ' + text
+			println(mensag)
+			println("\n")
+		}
+		else  {
+			println("\n")
+			msgErro = 'O produto -->' + ExpectedValue + '<-- que deveria ter sido eliminado, foi encontrado na linha ' + line
+			KeywordUtil.markWarning(msgErro)
+			deletado = 'no'
+			line = totalLinhas
+			break
+		}
+	}
+	if(deletado=='yes') {
+		msgDel = 'O produto -->' + ExpectedValue + '<-- foi deletado com sucesso'
+		KeywordUtil.markWarning(msgDel)
+	}
+}
+
+
+WebUI.closeBrowser()

@@ -1,0 +1,69 @@
+import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
+import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
+import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
+import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import static com.kms.katalon.core.testobject.ObjectRepository.findWindowsObject
+import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
+import com.kms.katalon.core.cucumber.keyword.CucumberBuiltinKeywords as CucumberKW
+import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
+import com.kms.katalon.core.model.FailureHandling as FailureHandling
+import com.kms.katalon.core.testcase.TestCase as TestCase
+import com.kms.katalon.core.testdata.TestData as TestData
+import com.kms.katalon.core.testng.keyword.TestNGBuiltinKeywords as TestNGKW
+import com.kms.katalon.core.testobject.TestObject as TestObject
+import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
+import internal.GlobalVariable as GlobalVariable
+import org.openqa.selenium.Keys as Keys
+import com.kms.katalon.core.exception.StepErrorException as StepErrorException
+
+String nomeEntrada = 'Positivo'
+
+String marcaPCEntrada = 'Desktop D570'
+
+String precoPCEntrada = '540'
+
+String descriPCEntrada = '4GB RAM, 160GB HD'
+
+String siteUrll = 'http://localhost:3000/'
+
+WebUI.openBrowser('')
+
+WebUI.navigateToUrl(siteUrll)
+
+WebUI.click(findTestObject('Object Repository/Page_React App/a_Produtos'))
+
+WebUI.click(findTestObject('Object Repository/Page_React App/button_Create'))
+
+WebUI.setText(findTestObject('Object Repository/Page_React App/input_Name_name'), nomeEntrada)
+
+WebUI.setText(findTestObject('Object Repository/Page_React App/input_Brand_brand'), marcaPCEntrada)
+
+WebUI.selectOptionByValue(findTestObject('Object Repository/Page_React App/select_OtherPhonesComputersAccessoriesGPSCameras'), 
+    'Other', true)
+
+WebUI.selectOptionByValue(findTestObject('Object Repository/Page_React App/select_OtherPhonesComputersAccessoriesGPSCameras'), 
+    'Computers', true)
+
+WebUI.setText(findTestObject('Object Repository/Page_React App/input_Price_price'), precoPCEntrada)
+
+WebUI.setText(findTestObject('Object Repository/Page_React App/textarea_Description_description'), descriPCEntrada)
+
+WebUI.click(findTestObject('Object Repository/Page_React App/button_Save'))
+
+// verifica quem eh o ultimo elemento. se eh quem acabamos de gravar...
+String nomeGravado = WebUI.getText(findTestObject('orig-row-last-ultimaLinha-coluna2-nome'))
+
+if (nomeEntrada == nomeGravado) {
+    WebUI.delay(5)
+
+    WebUI.closeBrowser()
+
+    println('Gravado com Sucesso: A ultima celula, coluna 2, eh: ' + nomeGravado)
+} else {
+    throw new StepErrorException('ERRO! Não encontrado ' + nomeGravado)
+}
+
+WebUI.closeBrowser()
+
