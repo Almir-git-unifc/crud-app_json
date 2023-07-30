@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>campo-preco-id1-linha2-colu5</name>
+   <name>objRepTabelaProdutos</name>
    <tag></tag>
-   <elementGuidId>1eb45990-dda7-498c-9e17-cef0fcc95e2d</elementGuidId>
+   <elementGuidId>bd5494b9-494e-4b73-91df-9dc4d77365ba</elementGuidId>
    <selectorCollection>
       <entry>
          <key>BASIC</key>
+         <value></value>
       </entry>
       <entry>
          <key>XPATH</key>
-         <value>//tr[1]/td[5]</value>
+         <value>//*[@id=&quot;root&quot;]/div/table</value>
       </entry>
    </selectorCollection>
    <selectorMethod>XPATH</selectorMethod>
