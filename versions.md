@@ -15,3 +15,5 @@ v06.00.001 - report tests in feature of 'Create New Product' valid in katalan st
 v07.00.001 - implemented Edit button feature and its test report
 
 v08.00.001 - implements feature 'Delete' & report tests of feature 
+
+v08.00.002 - fix image path and resize shot1-home-edit.png
