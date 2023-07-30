@@ -6,11 +6,11 @@ This is a CRUD Application using Node.js, React, JS, json
 
 
 # Demo
-![screen1-home&Edit](https://github.com/Almir-git-unifc/Cadastro_crud-app_react-js_json/blob/master/shot1-home-edit.png)
+![Home-Edit](https://github.com/Almir-git-unifc/Cadastro_crud-app_react-js_json/blob/main/shot1-home-edit.png)
 
-![screen2-home&Edit](https://github.com/Almir-git-unifc/Cadastro_crud-app_react-js_json/blob/master/shot2-incluir.png)
+![Include](https://github.com/Almir-git-unifc/Cadastro_crud-app_react-js_json/blob/main/shot2-incluir.png)
 
-![screen2-home&Edit](https://github.com/Almir-git-unifc/Cadastro_crud-app_react-js_json/blob/master/shot3-list&del.png)
+![List-Dell](https://github.com/Almir-git-unifc/Cadastro_crud-app_react-js_json/blob/main/shot3-list&del.png)
 
 --------------------------------------------------------------------------------------
 
