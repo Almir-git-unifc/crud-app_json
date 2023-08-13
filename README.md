@@ -49,7 +49,7 @@ To clone and run this application, you'll need Git, Node.js v16.15 or higher + n
 ### $ ` Install in command line: npm install  -g   json-server`
 
 ### $ ` Install in command line: npm install react-router-dom `
-### $ `Run in command line: json-server json-server --watch db.json --port 3004`
+### $ `Run in command line: json-server --watch db.json --port 3004`
 
 &nbsp;
 ## Run locally the app
