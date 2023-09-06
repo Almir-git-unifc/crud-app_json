@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TestCaseEntity>
-   <description>Atualiza usando botão Edit</description>
-   <name>teste btn EDIT atualizar produtos - nome e descriçao - line1 - usa recordWeb - Validado</name>
-   <tag></tag>
-   <comment></comment>
-   <testCaseGuid>7ca1e8ee-fcb6-42c1-80f9-221da63437b6</testCaseGuid>
-</TestCaseEntity>
